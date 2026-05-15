@@ -17,9 +17,9 @@ export interface Env {
 const API_PROXY_PREFIX = '/api-proxy'
 
 const ALLOWED_PROXY_PATHS = [
-  /^\/v1\/images\/generations\/?$/,
-  /^\/v1\/images\/edits\/?$/,
-  /^\/v1\/responses\/?$/,
+  /^\/(?:v1\/)?images\/generations\/?$/,
+  /^\/(?:v1\/)?images\/edits\/?$/,
+  /^\/(?:v1\/)?responses\/?$/,
 ]
 
 const HOP_BY_HOP = new Set([
@@ -179,7 +179,8 @@ async function handleApiProxy(request: Request, env: Env): Promise<Response> {
     return new Response('Forbidden: API Proxy path restricted', { status: 403 })
   }
 
-  const upstreamUrl = new URL(target.replace(/\/+$/, '') + subPath)
+  const normalizedSubPath = subPath.startsWith('/v1/') ? subPath : `/v1${subPath}`
+  const upstreamUrl = new URL(target.replace(/\/+$/, '') + normalizedSubPath)
   upstreamUrl.search = url.search
 
   const headers = stripHopByHop(request.headers)

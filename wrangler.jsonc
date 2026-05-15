@@ -2,8 +2,15 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "gpt-image-playground",
   "compatibility_date": "2026-05-07",
+  "main": "worker/index.ts",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
     "not_found_handling": "single-page-application"
+  },
+  "vars": {
+    // Upstream API base URL forwarded by the /api-proxy route.
+    // Change this to your own provider if you don't want to use sub2api.
+    "API_PROXY_URL": "https://sub2api.guts.eu.org"
   }
 }

@@ -8,6 +8,11 @@
 - `cloudflare`：在最新 `origin/main` 之上保留 Cloudflare 同源 API 代理等本地提交。
 - 更新上游时使用 rebase，让本地提交重新应用到最新上游，避免产生合并提交。
 
+Git 远端职责：
+
+- `origin`：`CookSleep/gpt_image_playground` 上游，只用于拉取更新。
+- `fork`：`wuzf/gpt_image_playground` 个人 fork，用于保存 `cloudflare` 分支。
+
 当前 Cloudflare Worker 名为 `gpt-image-playground`，访问域名：
 
 - `https://gptimage.guts.eu.org`
@@ -42,6 +47,16 @@ git rebase --abort
 ```
 
 不要把 `cloudflare` 合并回 `main`，也不要强制推送 `origin/main`。
+
+## 推送 GitHub
+
+rebase 会改写本地提交 ID，验证通过后使用 `--force-with-lease` 安全更新个人 fork：
+
+```powershell
+git push --force-with-lease fork cloudflare:cloudflare
+```
+
+不要给本地 `cloudflare` 设置 `fork/cloudflare` 为 upstream；它需要继续跟踪 `origin/main`，才能清楚显示相对上游领先的本地提交。
 
 ## 构建与测试
 

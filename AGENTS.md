@@ -21,6 +21,13 @@
 - 测试使用 Vitest，已有多个 `*.test.ts` 文件。
 - 不要新增 lint/formatter 配置文件，除非明确要求。
 
+## Cloudflare 分支维护
+
+- `main` 只跟踪 `origin/main`，Cloudflare 本地定制放在 `cloudflare` 分支。
+- 同步上游、处理冲突、构建、测试、部署和线上验证必须遵循 `CLOUDFLARE.md`。
+- Cloudflare 构建使用 `npm run build:cf`，部署使用 `npm run deploy:cf`。
+- 不要把 API Key 写入 `.env.cf`、`wrangler.jsonc` 或任何 `VITE_*` 变量。
+
 ## 代码风格（强制）
 
 ### 简单优先

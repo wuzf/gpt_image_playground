@@ -215,7 +215,9 @@ npx wrangler login
 npm run deploy:cf
 ```
 
-部署脚本会先执行 `npm run build`，再通过 `wrangler deploy` 上传 `dist/` 目录。
+部署脚本会先执行 `npm run build:cf`，再通过 `wrangler deploy` 上传 `dist/` 目录。
+
+本仓库 `cloudflare` 分支的上游同步、同源 API 代理配置、部署和验证流程见 [`CLOUDFLARE.md`](./CLOUDFLARE.md)。
 
 **配置默认 API URL**：Cloudflare Workers 的环境变量不会自动改写已经构建好的静态文件。若需预设默认 API 地址，请在构建前设置 `VITE_DEFAULT_API_URL` 后再部署。
 
